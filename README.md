@@ -20,7 +20,7 @@
 一条命令完成部署，开箱即用，自动配置并导入数据库：
 
 ```bash
-docker run -d -p 8080:80 -v homepage_mysql:/var/lib/mysql -v homepage_www:/var/www/html --name homepage hanyuestar/homepage:latest
+docker run -d -p 8080:80 -v homepage_mysql:/var/lib/mysql -v homepage_www:/var/www/html --name homepage ghcr.io/hanyuestar/homepage:latest
 ```
 
 或使用 Docker Compose（项目根目录已内置 `docker-compose.yml`，含健康检查、自动重启）：
@@ -37,6 +37,8 @@ docker compose up -d
 | 默认密码 | `123456`                      |
 
 > 首次登录后请立即修改默认密码。详细的部署、数据持久化、备份恢复、反向代理等内容请参阅 [Docker.md](Docker.md)。
+>
+> 镜像双注册表发布：`ghcr.io/hanyuestar/homepage` + `kyson666/homepage`（Docker Hub）。切换 Docker Hub：`IMAGE=kyson666/homepage docker compose up -d`
 
 ### 常规安装
 

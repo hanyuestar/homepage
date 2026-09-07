@@ -17,7 +17,7 @@
 ### 方式一：快速体验（不推荐）
 
 ```bash
-docker run -d -p 8080:80 hanyuestar/homepage:latest
+docker run -d -p 8080:80 ghcr.io/hanyuestar/homepage:latest
 ```
 
 > 注意：此方式容器删除后数据会丢失，仅用于体验。
@@ -25,7 +25,7 @@ docker run -d -p 8080:80 hanyuestar/homepage:latest
 ### 方式二：数据持久化（推荐）
 
 ```bash
-docker run -d -p 8080:80 -v homepage_mysql:/var/lib/mysql -v homepage_www:/var/www/html --name homepage hanyuestar/homepage:latest
+docker run -d -p 8080:80 -v homepage_mysql:/var/lib/mysql -v homepage_www:/var/www/html --name homepage ghcr.io/hanyuestar/homepage:latest
 ```
 
 > 使用命名卷，数据永久保存，容器删除/重建不丢失。
@@ -127,7 +127,7 @@ server {
 ### 如何升级？
 
 1. 备份数据库与网站文件（见上文备份章节）
-2. 拉取新版本镜像：`docker pull hanyuestar/homepage:latest`
+2. 拉取新版本镜像：`docker pull ghcr.io/hanyuestar/homepage:latest`
 3. 重建容器：`docker compose up -d --force-recreate`
 
 数据库结构由程序在启动时自动兼容处理，无需手动导入升级 SQL。
@@ -144,5 +144,5 @@ docker exec -it homepage sh -c "mysql -u root --socket=/var/run/mysqld/mysqld.so
 ```bash
 git clone https://github.com/hanyuestar/homepage.git
 cd homepage
-docker build -t hanyuestar/homepage:latest .
+docker build -t ghcr.io/hanyuestar/homepage:latest .
 ```

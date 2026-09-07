@@ -4,7 +4,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: hanyuestar/homepage:latest
+    image: ghcr.io/hanyuestar/homepage:latest
+    # 切换到 Docker Hub: IMAGE=kyson666/homepage docker compose up -d
     container_name: homepage
     ports:
       - "8080:80"
