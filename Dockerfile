@@ -70,8 +70,10 @@ WORKDIR /var/www/html
 # 复制应用文件（.dockerignore 已排除 .git、文档、Docker 配置等）
 COPY . /var/www/html/
 
-# 清理构建期产物，仅保留运行时文件
-RUN rm -rf /var/www/html/.git /var/www/html/.github
+# 清理构建期产物，仅保留运行时文件（docker-entrypoint.sh / supervisord.conf 单独 COPY，不留在 web 根）
+RUN rm -rf /var/www/html/.git /var/www/html/.github \
+        /var/www/html/Dockerfile /var/www/html/docker-compose.yml \
+        /var/www/html/docker-entrypoint.sh /var/www/html/supervisord.conf
 
 # 备份一份应用文件，用于 entrypoint 在空卷/bind mount 场景下自动恢复
 RUN mkdir -p /app && cp -a /var/www/html/. /app/www_bak/

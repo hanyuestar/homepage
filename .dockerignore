@@ -4,6 +4,4 @@
 LICENSE
 Dockerfile
 docker-compose.yml
-docker-entrypoint.sh
-supervisord.conf
 .dockerignore
