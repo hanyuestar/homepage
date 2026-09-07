@@ -1,0 +1,37 @@
+services:
+  # Web服务 - Apache + PHP 8.2 + MariaDB (单容器方案)
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hanyuestar/homepage:latest
+    container_name: homepage
+    ports:
+      - "8080:80"
+    volumes:
+      - homepage_data:/var/www/html
+      - mysql_data:/var/lib/mysql
+    networks:
+      - homepage_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "-o", "/dev/null", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
+
+# 持久化卷
+volumes:
+  homepage_data:
+    driver: local
+    name: homepage_web_data
+  mysql_data:
+    driver: local
+    name: homepage_mysql_data
+
+# 内部网络
+networks:
+  homepage_network:
+    driver: bridge
+    name: homepage_network
