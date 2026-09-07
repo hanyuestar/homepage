@@ -1095,3 +1095,18 @@ function rate_limit($key, $max = 20, $window = 60)
     fclose($fp);
     return $allowed;
 }
+
+
+/**
+ * 获取当前站点根地址（协议 + 域名），供后台展示默认资源地址使用
+ * 注：上游 v2.7.0 调用了该函数但从未定义（死代码缺陷），此处补齐
+ * @return string 如 https://example.com
+ */
+function siteurl($id = 0, $t = 0)
+{
+    $https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+        || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)
+        || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+    $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
+    return ($https ? 'https://' : 'http://') . $host;
+}
