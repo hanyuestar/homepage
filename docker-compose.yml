@@ -1,11 +1,9 @@
 services:
   # Web服务 - Apache + PHP 8.2 + MariaDB (单容器方案)
+  # 默认拉取 ghcr.io 镜像；切换 Docker Hub: IMAGE=kyson666/homepage docker compose up -d
+  # 本地构建: docker build -t homepage . 后以 IMAGE=homepage 覆盖
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: ghcr.io/hanyuestar/homepage:latest
-    # 切换到 Docker Hub: IMAGE=kyson666/homepage docker compose up -d
+    image: ${IMAGE:-ghcr.io/hanyuestar/homepage:latest}
     container_name: homepage
     ports:
       - "8080:80"
@@ -22,7 +20,7 @@ services:
       retries: 3
       start_period: 90s
 
-# 持久化卷
+# 持久化卷（服务实际引用）
 volumes:
   homepage_data:
     driver: local
