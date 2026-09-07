@@ -43,6 +43,8 @@ RUN mkdir -p /var/run/mysqld && \
     echo "[mysqld]" > /etc/mysql/mariadb.conf.d/99-local-only.cnf && \
     echo "bind-address = 127.0.0.1" >> /etc/mysql/mariadb.conf.d/99-local-only.cnf && \
     echo "skip-ssl" >> /etc/mysql/mariadb.conf.d/99-local-only.cnf && \
+    # 群晖等 NAS 内核不支持 io_uring（ENOSYS），禁用 InnoDB 原生 AIO 强制走 libaio/同步 IO
+    echo "innodb_use_native_aio = OFF" >> /etc/mysql/mariadb.conf.d/99-local-only.cnf && \
     echo "innodb_buffer_pool_size = 128M" >> /etc/mysql/mariadb.conf.d/99-local-only.cnf && \
     echo "innodb_log_file_size = 32M" >> /etc/mysql/mariadb.conf.d/99-local-only.cnf
 
