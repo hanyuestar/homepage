@@ -225,6 +225,82 @@ main() {
         fi
     fi
 
+    # ===== 版本升级自动合并 =====
+    # Docker 卷持久化后，新版镜像的代码不会自动覆盖卷中的旧文件。
+    # 此处比较镜像内备份的版本号与卷中实际版本号，不一致时自动合并更新代码文件，
+    # 同时保留用户数据（config.php、install.lock、上传图片等）。
+    sync_app_files() {
+        log_step "检测到版本升级，开始同步应用文件..."
+
+        # 需要保留的用户数据文件/目录（不被覆盖）
+        local preserve_list="config.php install/install.lock"
+
+        # 备份用户数据
+        local tmpdir="/tmp/_homepage_preserve_$$"
+        mkdir -p "$tmpdir"
+        for item in $preserve_list; do
+            if [ -e "/var/www/html/$item" ]; then
+                local dir
+                dir=$(dirname "$item")
+                mkdir -p "$tmpdir/$dir"
+                cp -a "/var/www/html/$item" "$tmpdir/$item" 2>/dev/null || true
+            fi
+        done
+
+        # 从镜像备份覆盖全部应用文件
+        cp -a /app/www_bak/. /var/www/html/ || true
+
+        # 清理卷中存在但镜像已删除的旧文件（如旧版微信推送页面等）
+        # 仅清理 PHP/JS/CSS 代码文件，不清理用户上传的图片等数据
+        cd /var/www/html
+        find . -type f \( -name '*.php' -o -name '*.js' -o -name '*.css' \) | while read -r f; do
+            if [ ! -f "/app/www_bak/$f" ]; then
+                # 跳过用户数据文件
+                case "$f" in
+                    ./config.php) continue ;;
+                    ./install/install.lock) continue ;;
+                esac
+                log_info "清理已废弃文件: $f"
+                rm -f "$f" 2>/dev/null || true
+            fi
+        done
+
+        # 还原用户数据
+        for item in $preserve_list; do
+            if [ -e "$tmpdir/$item" ]; then
+                cp -a "$tmpdir/$item" "/var/www/html/$item" 2>/dev/null || true
+            fi
+        done
+        rm -rf "$tmpdir"
+
+        log_info "应用文件同步完成"
+    }
+
+    # 从 version.php 中提取版本号（格式：define('VERSION', 'x.y.z');）
+    get_version() {
+        local file="$1"
+        if [ -f "$file" ]; then
+            grep -oP "define\s*\(\s*'VERSION'\s*,\s*'[^']*'" "$file" | grep -oP "'[^']*'$" | tr -d "'" || echo ""
+        else
+            echo ""
+        fi
+    }
+
+    local vol_ver
+    local img_ver
+    vol_ver=$(get_version "/var/www/html/include/version.php")
+    img_ver=$(get_version "/app/www_bak/include/version.php")
+
+    if [ -n "$img_ver" ] && [ -n "$vol_ver" ] && [ "$img_ver" != "$vol_ver" ]; then
+        log_warn "版本不一致：卷=${vol_ver} → 镜像=${img_ver}，执行自动升级..."
+        sync_app_files
+    elif [ -n "$img_ver" ] && [ -z "$vol_ver" ]; then
+        log_warn "卷中无版本文件，执行完整恢复..."
+        sync_app_files
+    else
+        log_info "应用版本一致 (${vol_ver:-unknown})，跳过文件同步"
+    fi
+
     # 后台执行初始化（wait_for_mysql 会轮询等待 MariaDB 就绪，无需固定延时）
     do_init &
 

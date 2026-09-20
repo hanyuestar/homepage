@@ -29,6 +29,20 @@ $filevn = get_vernum(constant("VERSION"));  // 文件版本
 if (!(isset($conf['build']) ? $conf['build'] : "")) {
     saveSetting('build', date("Y-m-d H:i"));
 }
+
+// ===== 上游 v2.x → 独立版 v1.x 迁移 =====
+// 数据库 version 字段仍为上游 v2.7.0 时（vernum=20700），表示从上游版本升级到独立版。
+// 此时无需执行上游的结构迁移（表/字段已是 v2.7.0），仅需：
+// 1. 清理已废弃的微信推送配置行
+// 2. 将数据库版本号更新为独立版版本号
+if ($sqlvn >= 20700 && $filevn < 20000) {
+    // 清理已废弃的微信推送配置行（v1.0.3 整链移除微信推送功能）
+    $DB->query("DELETE FROM `homepage_config` WHERE `k` IN ('wxplus', 'wxplustime')");
+    // 将数据库版本号切换到独立版体系
+    saveSetting('version', constant("VERSION"));
+    return 0;
+}
+
 if ($sqlvn < $filevn) {
     // 文件版本大于数据库版本，执行更新
     $sql = '';
