@@ -44,7 +44,6 @@ $menu_map = array(
   'pwd.php'          => 'pwd',
   'cleanimg.php'     => 'cleanimg',
   'update.php'       => 'update',
-  'wxplus.php'       => 'wxplus',
 );
 $current_menu = isset($menu_map[$current_page]) ? $menu_map[$current_page] : '';
 // 输出当前菜单的 active 类；$open 为 true 时同时展开子菜单
@@ -128,7 +127,6 @@ try {
             <li class="nav-item<?php echo menu_active('pwd'); ?>"> <a href="./pwd.php"><i class="mdi mdi-key-variant"></i>加密管理</a></li>
             <li class="nav-item<?php echo menu_active('cleanimg'); ?>"> <a href="./cleanimg.php"><i class="mdi mdi-image-filter"></i>文件清理</a> </li>
             <li class="nav-item<?php echo menu_active('update'); ?>"> <a href="./update.php"><i class="mdi mdi-information"></i>版本信息</a> </li>
-            <li class="nav-item<?php echo menu_active('wxplus'); ?>"> <a href="./wxplus.php"><i class="mdi mdi-wechat"></i>微信推送</a> </li>
 
             <li><a href="#logout" onclick="loginout();return false;">退出登录</a> </li>
           </ul>

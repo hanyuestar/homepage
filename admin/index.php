@@ -150,7 +150,7 @@ function tjsj($tjname)
 					<b>程序名称：</b>Homepage(Homepage)
 				</li>
 				<li class="list-group-item">
-					<b>主程序版本：</b>v<?php echo VERSION ?> <a href="./update.php" target="_blank">检查更新</a>
+					<b>主程序版本：</b>v<?php echo VERSION ?> <a href="./update.php" target="_blank">版本信息</a>
 				</li>
 				<li class="list-group-item">
 					<b>数据库版本：</b><?php echo $conf['version'] ?>

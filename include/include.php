@@ -6,9 +6,10 @@
  * - 移除了对 ajax_link.php / ajax_apply.php / ajax_theme.php 的授权拦截与授权码校验逻辑
  * - 移除了 _up_guard() 中的恶意删库后门（VIOLATION 状态下 DROP TABLE）
  * - 移除了向 cdn.lylme.com 上报域名/版本的 update() 与授权码自愈逻辑
- * - 移除了依赖 wx.lylme.com 的微信推送远程调用（wxPlus 改为本地桩函数）
+ * - 移除了依赖 wx.lylme.com 的微信推送远程调用及 wxPlus 桩函数（微信推送功能链已整体移除）
  * - 移除了无鉴权的 ?console=update / ?console=list 路由（信息泄露）
- * - 保留主题读取、siteurl、web_list_info 等本地正常功能函数
+ * - 移除了 wxPlus 本地桩函数与 web_list_info/_wl_row 死代码（console 路由唤起方已删）
+ * - 保留主题读取、siteurl 等本地正常功能函数
  */
 
 if (!defined('IN_CRONLITE')) {
@@ -28,13 +29,6 @@ if (!function_exists('_cfg_val')) {
     {
         $xkllifcn = isset($GLOBALS['conf']) ? $GLOBALS['conf'] : array();
         return isset($xkllifcn[$k]) ? $xkllifcn[$k] : $d;
-    }
-}
-
-if (!function_exists('_cfg_val_from')) {
-    function _cfg_val_from($a, $k, $d)
-    {
-        return isset($a[$k]) ? $a[$k] : $d;
     }
 }
 
@@ -105,17 +99,6 @@ if (!function_exists('theme_file')) {
     }
 }
 
-// ========== 微信推送（独立版未启用远程推送服务） ==========
-
-if (!function_exists('wxPlus')) {
-    function wxPlus($data)
-    {
-        // 上游商业版的微信推送依赖 wx.lylme.com 远程服务（原 _wx_api 中 base64 藏址），
-        // 独立发行版不依赖任何第三方服务，直接返回未启用提示
-        return '{"code":-1,"msg":"独立版未启用微信推送服务"}';
-    }
-}
-
 // ========== 主题配置读取 ==========
 
 if (!function_exists('_theme_raw')) {
@@ -162,51 +145,6 @@ if (!function_exists('theme')) {
 // 上游的 update() 会向 cdn.lylme.com 上报域名与版本号，且 _up_guard() 会把服务器
 // 下发的授权码自动写回数据库（授权锁自愈），另有 VIOLATION 状态下 DROP TABLE 的
 // 恶意后门。独立发行版不依赖任何更新服务器，相关函数与 console 路由全部移除。
-
-// ========== 网站列表信息 ==========
-
-if (!function_exists('_wl_row')) {
-    function _wl_row($g, $db)
-    {
-        $crppec = array();
-        $kcdpsvgr = $db->query("SELECT * FROM `homepage_links` WHERE `group_id` = " . $g . " ORDER BY `link_order` ASC;");
-        if ($kcdpsvgr !== false) {
-            while ($qltmc = $db->fetch($kcdpsvgr)) {
-                if ($qltmc === false)
-                    break;
-                $biwrarm = isset($qltmc['id']) ? $qltmc['id'] : 0;
-                $xavoh = isset($qltmc['name']) ? $qltmc['name'] : '';
-                $qbzjboe = isset($qltmc['url']) ? $qltmc['url'] : '';
-                $crppec[] = $biwrarm . "_[" . $xavoh . "]" . $qbzjboe;
-            }
-        }
-        return $crppec;
-    }
-}
-
-if (!function_exists('web_list_info')) {
-    function web_list_info()
-    {
-        global $DB;
-        $ffdhnk = array();
-        if (!isset($DB) || !is_object($DB)) {
-            return $ffdhnk;
-        }
-        $nevwvnm = $DB->query("SELECT * FROM `homepage_groups` ORDER BY `group_order` ASC");
-        if ($nevwvnm === false) {
-            return $ffdhnk;
-        }
-        while ($zrzkroow = $DB->fetch($nevwvnm)) {
-            if ($zrzkroow === false)
-                break;
-            $nbglsrse = isset($zrzkroow['group_id']) ? (int) $zrzkroow['group_id'] : 0;
-            $qfqwqkol = isset($zrzkroow['group_name']) ? $zrzkroow['group_name'] : '';
-            $ffdhnk[] = "[" . $nbglsrse . "]" . $qfqwqkol;
-            $ffdhnk[] = _wl_row($nbglsrse, $DB);
-        }
-        return $ffdhnk;
-    }
-}
 
 // ========== Console 路由（已整体移除） ==========
 // 原代码暴露 ?console=update / ?console=list 两个无鉴权接口：
